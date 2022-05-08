@@ -1,9 +1,11 @@
 from email_validator import validate_email as validator
-from flask import Flask, escape, jsonify
+from flask import Flask, escape, jsonify, request
 from flask_cors import CORS
 
 import sqlite3
 import requests
+
+CAPTCHA_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
 
 app = Flask(__name__)
 
@@ -30,7 +32,7 @@ def email():
     email = escape(request.form['email'])
     captcha = escape(request.form['captcha'])
 
-    if validate_email(email) and validate_cpatcha(captcha):
+    if validate_email(email) and validate_captcha(captcha):
         try:
             return jsonify({"success": add_email(email)})
         except:
