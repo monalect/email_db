@@ -5,9 +5,10 @@ from flask_cors import CORS
 import sqlite3
 import requests
 
-CAPTCHA_KEY = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+CAPTCHA_KEY = "0x0000000000000000000000000000000000000000"
 
 app = Flask(__name__)
+CORS(app)
 
 def validate_email(email):
     try:
@@ -17,7 +18,7 @@ def validate_email(email):
         return False
 
 def validate_captcha(captcha: str):
-    r = requests.post('https://www.google.com/recaptcha/api/siteverify', params={"secret" : CAPTCHA_KEY,"response" : captcha })
+    r = requests.post('https://hcaptcha.com/siteverify', params={"secret" : CAPTCHA_KEY, "response" : captcha })
     return r.json()['success']
 
 def add_email(email):
