@@ -28,7 +28,7 @@ def add_email(email):
     con.close()
     return True
 
-@app.route("/", methods=["POST"])
+@app.route("/email", methods=["POST"])
 def email():
     email = escape(request.form['email'])
     captcha = escape(request.form['captcha'])
